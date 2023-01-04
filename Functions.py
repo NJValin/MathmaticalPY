@@ -69,4 +69,15 @@ def exp(val:float, *args:float) -> float:
         s += ((factor**n)*(val**n))/math.factorial(n)
     return round(s, 15)
 
+def Bessel(type:int, value:float):
+    """
+    # Parameters
+    
+    
+    """
+    summation = 0
+    for i in range(50):
+        summation+=(((-1)**i)*((value/2)**(2*i+type)))/(math.factorial(i)*math.factorial(i+type))
+    return summation
+
 
