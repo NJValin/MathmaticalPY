@@ -1,39 +1,64 @@
 __package__
-
+from DualNum import *
+from Functions import convolve
+import numpy as np
 class Polynomial:
-
-    def __init__(self, *args):
-        self.coefficents  = [i for i in args]
-        self.coefficents.reverse()
+    
+    def __init__(self, *coefficients):
+        if isinstance(coefficients[0], list):
+            self.coefficients = coefficients[0]
+        else:
+            self.coefficients  = [i for i in coefficients]
+        self.__len__  = len(self.coefficients)
     
     def __str__(self) -> str:
         s = ""
-        x = len(self.coefficents)-1
+        x = len(self.coefficients)-1
+        self.coefficients.reverse()
         while x >=0:
             if x==1:
-                if self.coefficents[x]!=1 or self.coefficents[x]!=0:
-                    s += "{0}x+".format(self.coefficents[x], x)
+                if self.coefficients[x]!=1 or self.coefficients[x]!=0:
+                    s += "{0}x+".format(self.coefficients[x], x)
                     x-=1
-                elif self.coefficents[x]==1:
-                    s += "x".format(self.coefficents[x], x)
+                elif self.coefficients[x]==1:
+                    s += "x".format(self.coefficients[x], x)
                     x-=1
                 else:
                     x-=1
             elif x==0:
-                if self.coefficents[x]!=0:
-                    s += "{0}".format(self.coefficents[x], x)
+                if self.coefficients[x]!=0:
+                    s += "{0}".format(self.coefficients[x], x)
                     x-=1
                 else:
                     x-=1
             else:
-                if self.coefficents[x]!=1 or self.coefficents[x]!=0:
-                    s += "{0}x**{1}+".format(self.coefficents[x], x)
+                if self.coefficients[x]!=1 or self.coefficients[x]!=0:
+                    s += "{0}x**{1}+".format(self.coefficients[x], x)
                     x-=1
-                elif self.coefficents[x]==1:
-                    s += "x**{1}+".format(self.coefficents[x], x)
+                elif self.coefficients[x]==1:
+                    s += "x**{1}+".format(self.coefficients[x], x)
                     x-=1
                 else:
                     x-=1
         return s
+    
+    def eval(self, x):
+        if type(x)==float or type(x)==int or type(x)==complex or type(x)==DualNum:
+            value = 0
+            index = self.__len__-1
+            while index>=0:
+                value = value+self.coefficients[index]*x**(index-1)
+                index -= 1
+            return value
+        return 0
+    
+    def multiply(self, other):
+        newCoefficients = convolve(self.coefficients, other.coefficients)
+        return Polynomial(newCoefficients)
 
-print(Polynomial(1,2,3,4))
+s = Polynomial(1,2,3,4)
+s2 = Polynomial(2, 4, 3, 1)
+
+print(s.multiply(s2))
+print(np.convolve([1,2,3,4],[2, 4, 3, 1]))
+print(convolve([1,2,3,4],[2, 4, 3, 1]))
