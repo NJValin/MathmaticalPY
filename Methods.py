@@ -34,6 +34,23 @@ def isPrime(p:int, *args:int):
             return False
     return True
 
-print(isPrime(1163))
+def plot(x0:float, x1:float, function:object):
+    """
+    # Not Yet completed
+    In the future a tkinter GUI will display the function.
+    """
+    dx = (x1-x0)/40
+    xspace = [0]*40
+    x = x0
+    for i in range(len(xspace)):
+        x+=dx
+        xspace[i] = x   
+    yspace = [0]*len(xspace)
+    for i in range(len(yspace)):
+        yspace[i]=function(xspace[i])
+    return yspace
+
+
+
 
 

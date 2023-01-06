@@ -25,24 +25,6 @@ def log(input:float=1, *args:float)->float:
     return round(enumnumerator/enumdenominator, 16)
 
 
-def sin(x:float, *args:str):
-    """
-    Parameters
-    ----------
-    x : The value of sin that will be computed by the function.
-
-    *args : An optional string variable that if equals 'degrees' or 'deg' 
-            will compute the value of sin using degrees
-
-    """
-    if len(args)>0 and (args[0]=='degrees' or args[0]=='deg' or args[0]=='degree'):
-        x = (x*pi)/180
-    s = 0
-    for n in range(50):
-        s+= ((-1)**n)*x**(2*n+1)/math.factorial(2*n+1)
-    
-    return round(s, 15)
-
  
 def convolve(A:list[float], B:list[float]) -> list[float]:
     C = []
@@ -73,7 +55,7 @@ def exp(val, *args:float) -> float:
     s = 0
     for n in range (0, 200):
         s += ((factor**n)*(val**n))/math.factorial(n)
-    return round(s, 15)
+    return s
 
 def Bessel(type:int, value:float):
     """
@@ -93,9 +75,15 @@ def sinc(x:float)->float:
     if x == 0:
         return 1
     else:
-        return sin(x)/x
+        return math.sin(x)/x
 
 def nsinc(x:float) ->float:
     return sinc(pi*x)
 
-print(nsinc(1))
+def Si(x:float)->float:
+    return integrate(0, x, sinc)
+
+def si(x:float)->float:
+    return -integrate(x, 500, sinc)
+
+print(si(-50))

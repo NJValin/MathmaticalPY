@@ -55,6 +55,9 @@ class Polynomial:
     def multiply(self, other):
         newCoefficients = convolve(self.coefficients, other.coefficients)
         return Polynomial(newCoefficients)
+    
+    
+
 
 s = Polynomial(1,2,3,4)
 s2 = Polynomial(2, 4, 3, 1)
