@@ -3,17 +3,28 @@ __package__
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.integrate as i
+from Methods import isPrime
 from Integrals import *
 
 global e ; e= 2.7182818284590452353602874713526624977572470936999595749 
 global pi; pi=3.141592653589793238462643383279
+global tau; tau = 2*pi
+global goldenRatio; goldenRatio=1.618033988749894848204586834365638117720309179805762862135448622705
  
-def log(input:float=1, *args:float)->float:
+def log(input:float, base:float=2)->float:
+    '''Returns the log₂(input)
+
+    Parameters
+    --------------------------------
+    input : The value of log that will be returned
+            must be greater than (and not equal to) 0.0
+    base : Set to `2` by default; for the natural log, use
+           :func:`~ln`
+
+    '''
     if input<=0:
         raise ValueError("Input value outside of function domain")
-    base = e
-    if (len(args)==1):
-        base = args[0]
     x_i = (input-1)/(input+1)
     base_i=(base-1)/(base+1)
     enumnumerator =0
@@ -24,7 +35,8 @@ def log(input:float=1, *args:float)->float:
         enumdenominator+=(2/(2*j+1))*base_i**(2*j+1)
     return round(enumnumerator/enumdenominator, 16)
 
-
+def ln(input:float):
+    return log(input, e)
  
 def convolve(A:list[float], B:list[float]) -> list[float]:
     C = []
@@ -57,7 +69,7 @@ def exp(val, *args:float) -> float:
         s += ((factor**n)*(val**n))/math.factorial(n)
     return s
 
-def Bessel(type:int, value:float):
+def Bessel( value:float, type:int=1,):
     """
     # Parameters
     """
@@ -65,6 +77,7 @@ def Bessel(type:int, value:float):
     for i in range(50):
         summation+=(((-1)**i)*((value/2)**(2*i+type)))/(math.factorial(i)*math.gamma(i+type+1))
     return round(summation, 15)
+
 
 def sinc(x:float)->float:
     """
@@ -83,7 +96,29 @@ def nsinc(x:float) ->float:
 def Si(x:float)->float:
     return integrate(0, x, sinc)
 
+def Pi(x:int)->int:
+    """The prime-counting function, returns the number of prime numbers up to the input integer x.\\
+       Called pi function π(x)
+    
+    Parameters
+    ----------
+    x : A natural number that is the
+    """
+    accumulator = 0
+    for i in range(1,x+1):
+        prime = isPrime(i)
+        accumulator = accumulator+1 if prime else accumulator
+    return accumulator
+
 def si(x:float)->float:
     return -integrate(x, 500, sinc)
 
-print(si(-50))
+def fourier(frequency:float, functionInTime:object)->complex:
+    """
+    Returns the
+    """
+    f = lambda x: functionInTime(x)*np.exp(-complex(0, -2*pi*frequency*x))
+    x = integrate(-5000, 5000, f)
+    return x
+
+print(Pi(10**5))

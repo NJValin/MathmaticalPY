@@ -58,10 +58,3 @@ class Polynomial:
     
     
 
-
-s = Polynomial(1,2,3,4)
-s2 = Polynomial(2, 4, 3, 1)
-
-print(s.multiply(s2))
-print(np.convolve([1,2,3,4],[2, 4, 3, 1]))
-print(convolve([1,2,3,4],[2, 4, 3, 1]))
