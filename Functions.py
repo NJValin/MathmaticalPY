@@ -81,9 +81,14 @@ def Bessel( value:float, type:int=1,):
 
 def sinc(x:float)->float:
     """
-    The sinc function sin(x)/x. ∀kϵ𝐙/{0}:sinc(kπ)=0
-    # Parameters
-    x : the value of the function computed
+    The sinc function sin(x)/x. ∀kϵZ/{0}:sinc(kπ)=0
+    Note: in this implemention we define sinc(0) to be equal
+    to 1.
+
+    Parameters
+    ----------
+    x : The input of the sinc function.
+    
     """
     if x == 0:
         return 1
@@ -113,6 +118,40 @@ def Pi(x:int)->int:
 def si(x:float)->float:
     return -integrate(x, 500, sinc)
 
+def logStar(x:float, base:float=2)->int:
+    '''computes the iterated logarithm function log*(x).
+    
+    Parameters
+    ----------
+    x : The input of the function, must be a integer/float
+        that is greater than 0.
+    
+    base : An optional parameter that specifies the base of 
+           the iterated logarithm function. The default value
+           is 2. The base must be greater than 1.44466 (e^(1/e))
+    
+    Returns
+    -------
+    The number of times the log must be iteratively applied before the result
+    is less than or equal to 1.\\
+    \\
+    For more information see: https://en.wikipedia.org/wiki/Iterated_logarithm
+
+    Examples
+    --------
+    >>> logStar(5)
+    3
+    >>> logStar(2**16)
+    4
+    '''
+    counter = 0
+    if base < e**(1/e):
+        raise ValueError('Base must be greater than e**(1/e)')
+    while x>1:
+        x = math.log(x,base)
+        counter+=1
+    
+    return counter
 def fourier(frequency:float, functionInTime:object)->complex:
     """
     Returns the
@@ -121,4 +160,4 @@ def fourier(frequency:float, functionInTime:object)->complex:
     x = integrate(-5000, 5000, f)
     return x
 
-print(Pi(10**5))
+print(logStar(2**16))

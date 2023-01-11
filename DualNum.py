@@ -70,6 +70,9 @@ class DualNum:
         for i in range(0, other):
             x *= self
         return x
+    
+    def __format__(self, __format_spec: str) -> str:
+        return self.__str__()
 
     def Re(self):
         return self.__a__
@@ -82,6 +85,5 @@ class DualNum:
 
     
     def __str__(self):
-        
         return "{0}+{1}ε".format(self.__a__, self.__b__)
 

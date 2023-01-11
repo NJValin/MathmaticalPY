@@ -34,9 +34,21 @@ def isPrime(p:int, iterations:int=30):
     return True
 
 def plot(x0:float, x1:float, function:object):
-    """
-    # Not Yet completed
-    In the future a tkinter GUI will display the function.
+    """Plots the function in the domain given as [x0, x1]
+    ## Not yet complete, will be completed using a tkinter GUI
+
+    Parameters
+    ----------
+    x0 : the infimum of the interval given.
+
+    x1 : The supremum of the given interval.
+
+    function : The function to be graphed.
+
+    Returns
+    -------
+    A picture of the function plotted in the given interval (NOT YET IMPLEMENTED).
+    At the moment, the function just plots the image of the function.
     """
     dx = (x1-x0)/40
     xspace = [0]*40
@@ -94,4 +106,3 @@ if __name__ == "__main__":
     f = lambda x: math.exp(x)-2
     print(bisection(0,6,f))
     print(math.log(2))
-    
