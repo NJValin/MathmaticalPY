@@ -2,6 +2,9 @@ __package__
 from DualNum import *
 
 class Matrix:
+    '''A class that represents a matrix
+    ### Version: 1.00    
+    '''
     def __init__(self,m:int, n:int):
         self.__m = m
         self.__n = n
@@ -52,8 +55,4 @@ class Matrix:
         return string2
 
 if __name__ == '__main__':
-    x = Matrix(3, 4)
-    print(x)
-    y = DualNum(2,3)
-    x.set(2, 2, y)
-    print(x)
+    pass

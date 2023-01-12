@@ -1,9 +1,10 @@
 __package__
 
 import math
+import cmath
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.integrate as i
+import scipy.special as special
 from Methods import isPrime
 from Integrals import *
 
@@ -50,6 +51,25 @@ def convolve(A:list[float], B:list[float]) -> list[float]:
                 s += A[i]*B[n-i]
         C.append(s)
     return C 
+
+def zeta(s:complex)->complex:
+    '''
+    
+    '''
+    return __zeta__(s, 100)
+
+def __zeta__(s:complex,n)->complex:
+    value = 0+0j
+    if s.real >1:
+        for i in range(1,2000):
+            value += 1/(cmath.exp(math.log(i)*s))
+        return value
+    if n==0:
+        return 1+1j
+    else:
+        return (cmath.exp(math.log(2)*s))*(cmath.exp(math.log(pi)*(s-1)))*cmath.sin((pi/2)*s)*special.gamma(1-s)*__zeta__(1-s, n-1)
+
+
 
 
 def exp(val, *args:float) -> float:
@@ -159,5 +179,3 @@ def fourier(frequency:float, functionInTime:object)->complex:
     f = lambda x: functionInTime(x)*np.exp(-complex(0, -2*pi*frequency*x))
     x = integrate(-5000, 5000, f)
     return x
-
-print(logStar(2**16))

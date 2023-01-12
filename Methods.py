@@ -2,6 +2,7 @@ __package__
 import math
 import random
 import numpy as np
+import time
 
 def isPrime(p:int, iterations:int=30):
     """
@@ -61,6 +62,15 @@ def plot(x0:float, x1:float, function:object):
         yspace[i]=function(xspace[i])
     return yspace
 
+def nwtMth(f:object, x:int):
+    h = 0.00001
+    df = lambda x: (f(x+h)-f(x-h))/(2*h)
+    for i in range(200):
+        xn = x - (f(x)/df(x))
+        x = xn
+    return x
+
+
 def bisection(a:float, b:float, function:object, iterations:int=50):
     """Finds zeroes of the function f(x) in the interval [a,b].
 
@@ -104,5 +114,4 @@ def bisection(a:float, b:float, function:object, iterations:int=50):
 
 if __name__ == "__main__":
     f = lambda x: math.exp(x)-2
-    print(bisection(0,6,f))
-    print(math.log(2))
+    print(f(math.log(2)))
