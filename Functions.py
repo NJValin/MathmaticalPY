@@ -5,8 +5,9 @@ import cmath
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.special as special
-from Methods import isPrime
+from Methods import isPrime, plot
 from Integrals import *
+import pyqtgraph as pg
 
 global e ; e= 2.7182818284590452353602874713526624977572470936999595749 
 global pi; pi=3.141592653589793238462643383279

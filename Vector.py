@@ -40,10 +40,8 @@ class Vector:
         rep = ''
         largestValue =0
         for i in self.__vec__:
-            if len(i.__str__())>0:
+            if len(i.__str__())>largestValue:
                 largestValue = len(i.__str__())
         for i in self.__vec__:
             rep += '| {0:^{1}} |\n'.format(i, largestValue)
         return rep
-a = Vector(1,2,3,4,5,6,7,8,9,10)
-print(a)
