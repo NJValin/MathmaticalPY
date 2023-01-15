@@ -34,16 +34,24 @@ class DualNum:
     def __mul__(self, other):
         if isinstance(other,int) or isinstance(other,float):
             return DualNum(self.__a__*other, self.__b__*other)
-        a = self.__a__*other.__a__
-        b = self.__a__*other.__b__+self.__b__*other.__a__
-        return DualNum(a, b)
+        a = self.__a__
+        b = self.__b__
+        c = other.__a__
+        d = other.__b__
+        real = a*b
+        hypercomplex = (a*d+b*c)
+        return DualNum(real, hypercomplex)
 
     def __rmul__(self, other):
         if isinstance(other,int) or isinstance(other,float):
             return DualNum(self.__a__*other, self.__b__*other)
-        a = self.__a__*other.__a__
-        b = self.__a__*other.__b__+self.__b__*other.__a__
-        return DualNum(a, b)
+        a = self.__a__
+        b = self.__b__
+        c = other.__a__
+        d = other.__b__
+        real = a*b
+        hypercomplex = (a*d+b*c)
+        return DualNum(real, hypercomplex)
 
     def __truediv__(self, other):
         if (isinstance(other, DualNum) or isinstance(other, int) or  isinstance(other, float))==False:
@@ -67,7 +75,7 @@ class DualNum:
         if isinstance(other,int)==False:
             raise ValueError("The power must be an integer")
         x = self
-        for i in range(0, other):
+        for i in range(0, other-1):
             x *= self
         return x
     
@@ -87,3 +95,8 @@ class DualNum:
     def __str__(self):
         return "{0}+{1}ε".format(self.__a__, self.__b__)
 
+a=DualNum(2,1)
+f = lambda x:4*x**2+2*x+3
+print(f(a))
+print(a**2)
+print(a*a*a)
